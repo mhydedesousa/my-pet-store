@@ -1,0 +1,22 @@
+Explanation of Design Decisions
+
+I had to support Cross Origin Resource Sharing by using app.options("/*", cors({origin: '*'})); 
+
+Without this, my sample React application could not access my API. 
+
+The fetch API running in the browser sends an options pre-flight check before the actual post. 
+
+I used JOI for easy and efficient input validation. 
+
+I created a helper function called extractAndTrim() to trim the input after input validation in order correctly format payloads that are sent to BoxKnight and Canada Post. 
+
+In my endpoint, I put all of the rates into one array called allRates. 
+
+This array is then traversed to find the optimal rate. 
+
+I put the two API rate calls into two different try/catch blocks. 
+This is done so that if one of the API calls fails and the other works, then a result will still be returned to the client. 
+
+After the call to get the best rates from Canada Post and Boxknight, I insert a key to each returned rate objects. 
+This key will be BK(BoxKnight) or CP(Canada Post). 
+This key is for determining which shipping carrier is used when creating a shipment. 
